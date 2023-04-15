@@ -1,0 +1,10 @@
+{
+  "name": "game-bot",
+  "version": "0.0.1",
+  "dependencies": {
+    "baileys": "^6.0.8",
+    "express": "*",
+    "qrcode": "latest",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
