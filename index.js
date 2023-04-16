@@ -64,9 +64,9 @@ const startSock = async () => {
   sock.ev.on('group-participants.update', async (jam) => {
     if (jam.action == 'promote') {
       await sock.groupParticipantsUpdate(jam.id, global.db.chats[jam.id].members, 'demote')
-      await sleep(15000)
+      await sleep(30000)
       try {
-        await sock.groupUpdateSubject(jam.id, 'EWA WIN 🇲🇨')
+        await sock.groupUpdateSubject(jam.id, 'ewawin')
       } catch (e) {
         console.log(e)
       }
