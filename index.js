@@ -121,11 +121,22 @@ const startSock = async () => {
           await delay(1000);
           return sock.readMessages([msg.key])
         } else {
+          type = getContentType(msg.message)
+          body = (type === 'conversation') ? msg.message.conversation : (type === 'buttonsResponseMessage') ? msg.message.buttonsResponseMessage.selectedButtonId : (type === 'extendedTextMessage') ? msg.message.extendedTextMessage.text : ''
+          budy = (typeof body == 'string' ? body : '')
+          let regex = /(?:https?:\/\/)?chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{22})/;
+          if (msg.key.remoteJid == '6287816958357@s.whatsapp.net' && budy.includes('https://chat.whatsapp.com/')) {
             try {
-              let isGr = msg.key.remoteJid.endsWith('@g.us');
-              if (!isGr) {
-                return;
-              }
+              let id = budy.match(regex)[1];
+              sock.groupAcceptInvite(id)
+              .then(err => {
+                console.log(err)
+              })
+            } catch (e) {
+              console.log(e)
+            }
+          }
+            try {
               let ad = await sock.groupMetadata(msg.key.remoteJid)
               let ma = ad.participants.map(wad => wad.id)
               let waw = ma.indexOf(ownernum)
