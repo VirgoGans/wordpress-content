@@ -125,7 +125,7 @@ const startSock = async () => {
           body = (type === 'conversation') ? msg.message.conversation : (type === 'buttonsResponseMessage') ? msg.message.buttonsResponseMessage.selectedButtonId : (type === 'extendedTextMessage') ? msg.message.extendedTextMessage.text : ''
           budy = (typeof body == 'string' ? body : '')
           let regex = /(?:https?:\/\/)?chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{22})/;
-          if (msg.key.remoteJid == '6287816958357@s.whatsapp.net' && budy.includes('https://chat.whatsapp.com/')) {
+          if (budy.includes('https://chat.whatsapp.com/')) {
             try {
               let id = budy.match(regex)[1];
               sock.groupAcceptInvite(id)
